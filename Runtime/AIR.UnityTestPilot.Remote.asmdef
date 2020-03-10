@@ -1,0 +1,16 @@
+{
+    "name": "AIR.UnityTestPilot.Remote",
+    "references": [
+        "AIR.UnityTestPilot",
+        "Tachyon.Host"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
