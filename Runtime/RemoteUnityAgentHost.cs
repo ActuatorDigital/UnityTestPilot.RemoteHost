@@ -6,7 +6,6 @@ using TachyonServerCore;
 using UnityEngine;
 using System.Linq;
 using System;
-using TITAN.Common.Config;
 
 namespace AIR.UnityTestPilot.Remote {
     
@@ -48,10 +47,10 @@ namespace AIR.UnityTestPilot.Remote {
             ElementQuery nativeQuery;
             switch (query.Format) {
                 case QueryFormat.NamedQuery:
-                    nativeQuery = new NamedElementQuery(query.Name);
+                    nativeQuery = new NamedElementQueryNative(query.Name);
                     break;
                 case QueryFormat.TypedQuery:
-                    nativeQuery = new TypedElementQuery(Type.GetType(query.TargetType));
+                    nativeQuery = new TypedElementQueryNative(Type.GetType(query.TargetType));
                     break;
                 default:
                     throw new ArgumentException("Element query format not known.");
@@ -82,7 +81,7 @@ namespace AIR.UnityTestPilot.Remote {
         }
 
         public void LeftClick(RemoteUiElement element) {
-            var localElement = new NamedElementQuery(element.Name);
+            var localElement = new NamedElementQueryNative(element.Name);
             var result = localElement.Search().FirstOrDefault();
             result?.LeftClick();
         }

@@ -1,8 +1,8 @@
 {
     "name": "AIR.UnityTestPilot.Remote",
     "references": [
-        "AIR.UnityTestPilot",
-        "Tachyon.Host"
+        "Tachyon.Host",
+        "AIR.UnityTestPilot.Native"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
