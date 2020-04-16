@@ -1,17 +1,19 @@
-﻿using System.Runtime.CompilerServices;
+﻿// Copyright (c) AIR Pty Ltd. All rights reserved.
 
-[assembly:InternalsVisibleTo("AIR.UnityTestPilot.Remote.Tests")]
-namespace AIR.UnityTestPilot.Remote { 
-    
-    public static class RemoteAgentActivator {
+using System.Runtime.CompilerServices;
 
-        internal const string VERBOSE_ACTIVATION_ARGUMENT_ARG = "-testAgent";
-        internal const string ACTIVATION_ARGUMENT_ARG = "-ta";
-        static RemoteUnityAgentHost _singleton;
+[assembly: InternalsVisibleTo("AIR.UnityTestPilot.Remote.Tests")]
+namespace AIR.UnityTestPilot.Remote
+{
+    public static class RemoteAgentActivator
+    {
+        public const string VERBOSE_ACTIVATION_ARGUMENT_ARG = "-testAgent";
+        public const string ACTIVATION_ARGUMENT_ARG = "-ta";
+        private static RemoteUnityAgentHost _singleton;
 
-        public static RemoteUnityAgentHost TryActivate(string[] args = null) {
-
-            if (_singleton != null) 
+        public static RemoteUnityAgentHost TryActivate(string[] args = null)
+        {
+            if (_singleton != null)
                 return _singleton;
 
             if (args == null)
@@ -29,10 +31,12 @@ namespace AIR.UnityTestPilot.Remote {
             return null;
         }
 
-        public static void Deactivate() {
-            _singleton.Shutdown(false);
-            _singleton = null;
+        public static void Deactivate()
+        {
+            if (_singleton != null) {
+                _singleton.Shutdown(false);
+                _singleton = null;
+            }
         }
-
     }
 }

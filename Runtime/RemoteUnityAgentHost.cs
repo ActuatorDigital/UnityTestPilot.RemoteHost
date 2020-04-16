@@ -1,17 +1,19 @@
-using Object = UnityEngine.Object;
-using AIR.UnityTestPilot.Queries;
-using AIR.UnityTestPilot.Agents;
+// Copyright (c) AIR Pty Ltd. All rights reserved.
+
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using AIR.UnityTestPilot.Agents;
+using AIR.UnityTestPilot.Queries;
 using TachyonServerCore;
 using UnityEngine;
-using System.Linq;
-using System;
+using Object = UnityEngine.Object;
 
-namespace AIR.UnityTestPilot.Remote {
-    
-    public class RemoteUnityAgentHost : IRemoteUnityDriver, IDisposable {
-        
-        private IUnityDriverAgent _nativeAgent; 
+namespace AIR.UnityTestPilot.Remote
+{
+    public class RemoteUnityAgentHost : IRemoteUnityDriver, IDisposable
+    {
+        private IUnityDriverAgent _nativeAgent;
         private TachyonUnityHost _host;
         private Object _scheneObject;
 
@@ -19,18 +21,18 @@ namespace AIR.UnityTestPilot.Remote {
         public bool Started => _host.Started && _connected;
         public event Action<bool> OnConnectionChanged;
 
-        public RemoteUnityAgentHost() {
-
+        public RemoteUnityAgentHost()
+        {
             var container = new GameObject("RemoteUnityHostAgent");
             var host = container.AddComponent<TachyonUnityHost>();
 
             host.OnClientConnected += (c) => {
                 OnConnectionChanged?.Invoke(true);
-                _connected = true; 
+                _connected = true;
             };
             host.OnClientDisconnected += (c) => {
                 OnConnectionChanged?.Invoke(false);
-                _connected = false; 
+                _connected = false;
             };
 
             _nativeAgent = new NativeUnityDriverAgent();
@@ -38,12 +40,13 @@ namespace AIR.UnityTestPilot.Remote {
             _host = host;
         }
 
-        public void StartHost() {
-            _host.Initialize( new RemoteDriverSerializer(), this );
+        public void StartHost()
+        {
+            _host.Initialize(new RemoteDriverSerializer(), this);
         }
 
-        public Task<RemoteUiElement> Query(RemoteElementQuery query) {
-            
+        public Task<RemoteUiElement> Query(RemoteElementQuery query)
+        {
             ElementQuery nativeQuery;
             switch (query.Format) {
                 case QueryFormat.NamedQuery:
@@ -59,37 +62,41 @@ namespace AIR.UnityTestPilot.Remote {
             var nativeResults = nativeQuery.Search();
             if (nativeResults != null) {
                 var remoteResults = Enumerable.Select(
-                    nativeResults, uie => 
-                        new RemoteUiElement (
+                    nativeResults, uie =>
+                        new RemoteUiElement(
                             uie?.Name,
                             uie?.IsActive ?? false,
-                            uie?.Text 
+                            uie?.Text
                         ));
-            
-                return Task.FromResult(remoteResults.FirstOrDefault());                
-            } else {
-              return  Task.FromResult<RemoteUiElement>(default);
+
+                return Task.FromResult(remoteResults.FirstOrDefault());
+            }
+            else {
+                return Task.FromResult<RemoteUiElement>(default);
             }
         }
 
-        public void Shutdown(bool immedaite) {
+        public void Shutdown(bool immedaite)
+        {
             _nativeAgent.Shutdown();
         }
 
-        public void SetTimeScale(float timeScale) {
+        public void SetTimeScale(float timeScale)
+        {
             _nativeAgent.SetTimeScale(timeScale);
         }
 
-        public void LeftClick(RemoteUiElement element) {
+        public void LeftClick(RemoteUiElement element)
+        {
             var localElement = new NamedElementQueryNative(element.Name);
             var result = localElement.Search().FirstOrDefault();
             result?.LeftClick();
         }
 
-        public void Dispose() {
+        public void Dispose()
+        {
             Object.Destroy(_scheneObject);
             // _host.Disconnect();
         }
     }
-    
 }
