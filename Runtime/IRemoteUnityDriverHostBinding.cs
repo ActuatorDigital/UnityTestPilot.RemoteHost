@@ -1,10 +1,10 @@
-using AIR.UnityTestPilot.Remote;
-using AIR.UnityTestPilot.Remote;
-using TachyonServerCore;
-using TachyonServerRPC;
 using System;
 using System.Threading.Tasks;
+using AIR.UnityTestPilotRemote.Common;
 using TachyonCommon;
+using TachyonServerCore;
+using TachyonServerRPC;
+
 namespace GeneratedBindings
 {
     [HostBindingAttribute(typeof(IRemoteUnityDriver))]
@@ -12,10 +12,13 @@ namespace GeneratedBindings
     {
         IRemoteUnityDriver _service;
         HostCore _connection;
-        public void Bind(HostCore connection, IRemoteUnityDriver service, EndPointMap endPoints )
+
+        public void Bind(HostCore connection, IRemoteUnityDriver service, EndPointMap endPoints)
         {
             _connection = connection;
             _service = service;
+
+
             BindClientCallbacks();
             BindHostMethodEndPoints(endPoints);
         }
@@ -26,13 +29,13 @@ namespace GeneratedBindings
 
         void BindHostMethodEndPoints(EndPointMap map)
         {
-            map.AddAskEndpoint<RemoteElementQuery,RemoteUiElement>((c,m) => Query(m).Result, "Query");
-            map.AddSendEndpoint<bool>((c,m) => Shutdown(m), "Shutdown");
-            map.AddSendEndpoint<Single>((c,m) => SetTimeScale(m), "SetTimeScale");
-            map.AddSendEndpoint<RemoteUiElement>((c,m) => LeftClick(m), "LeftClick");
+            map.AddAskEndpoint<RemoteElementQuery, RemoteUiElement>((c, m) => Query(m).Result, "Query");
+            map.AddSendEndpoint<bool>((c, m) => Shutdown(m), "Shutdown");
+            map.AddSendEndpoint<Single>((c, m) => SetTimeScale(m), "SetTimeScale");
+            map.AddSendEndpoint<RemoteUiElement>((c, m) => LeftClick(m), "LeftClick");
         }
 
-        Task<AIR.UnityTestPilot.Remote.RemoteUiElement> Query(RemoteElementQuery query)
+        Task<AIR.UnityTestPilotRemote.Common.RemoteUiElement> Query(RemoteElementQuery query)
         {
             return _service.Query(query);
         }
@@ -51,8 +54,5 @@ namespace GeneratedBindings
         {
             _service.LeftClick(element);
         }
-
     }
-
 }
-

@@ -3,7 +3,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("AIR.UnityTestPilot.Remote.Tests")]
-namespace AIR.UnityTestPilot.Remote
+namespace AIR.UnityTestPilotRemote.Host
 {
     public static class RemoteAgentActivator
     {

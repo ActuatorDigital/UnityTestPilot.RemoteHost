@@ -1,5 +1,5 @@
 {
-    "name": "AIR.UnityTestPilot.Remote",
+    "name": "AIR.UnityTestPilotRemote.Host",
     "references": [
         "Tachyon.Host",
         "AIR.UnityTestPilot.Native"

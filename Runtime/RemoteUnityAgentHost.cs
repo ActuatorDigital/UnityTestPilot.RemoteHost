@@ -5,21 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using AIR.UnityTestPilot.Agents;
 using AIR.UnityTestPilot.Queries;
+using AIR.UnityTestPilotRemote.Common;
 using TachyonServerCore;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace AIR.UnityTestPilot.Remote
+namespace AIR.UnityTestPilotRemote.Host
 {
     public class RemoteUnityAgentHost : IRemoteUnityDriver, IDisposable
     {
         private IUnityDriverAgent _nativeAgent;
         private TachyonUnityHost _host;
         private Object _scheneObject;
-
         private bool _connected;
-        public bool Started => _host.Started && _connected;
-        public event Action<bool> OnConnectionChanged;
 
         public RemoteUnityAgentHost()
         {
@@ -28,17 +26,18 @@ namespace AIR.UnityTestPilot.Remote
 
             host.OnClientConnected += (c) => {
                 OnConnectionChanged?.Invoke(true);
-                _connected = true;
-            };
+                _connected = true; };
             host.OnClientDisconnected += (c) => {
                 OnConnectionChanged?.Invoke(false);
-                _connected = false;
-            };
+                _connected = false; };
 
             _nativeAgent = new NativeUnityDriverAgent();
             _scheneObject = container;
             _host = host;
         }
+
+        public event Action<bool> OnConnectionChanged;
+        public bool Started => _host.Started && _connected;
 
         public void StartHost()
         {
@@ -70,8 +69,7 @@ namespace AIR.UnityTestPilot.Remote
                         ));
 
                 return Task.FromResult(remoteResults.FirstOrDefault());
-            }
-            else {
+            } else {
                 return Task.FromResult<RemoteUiElement>(default);
             }
         }
@@ -96,7 +94,6 @@ namespace AIR.UnityTestPilot.Remote
         public void Dispose()
         {
             Object.Destroy(_scheneObject);
-            // _host.Disconnect();
         }
     }
 }
