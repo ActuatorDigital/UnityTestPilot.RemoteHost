@@ -52,7 +52,10 @@ namespace AIR.UnityTestPilotRemote.Host
                     nativeQuery = new NamedElementQueryNative(query.Name);
                     break;
                 case QueryFormat.TypedQuery:
-                    nativeQuery = new TypedElementQueryNative(Type.GetType(query.TargetType));
+                    var queryType = Type.GetType(query.TargetType);
+                    nativeQuery = string.IsNullOrEmpty(query.Name)
+                        ? new TypedElementQueryNative(queryType)
+                        : new TypedElementQueryNative(queryType, query.Name);
                     break;
                 default:
                     throw new ArgumentException("Element query format not known.");
