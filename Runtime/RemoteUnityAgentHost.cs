@@ -68,7 +68,9 @@ namespace AIR.UnityTestPilotRemote.Host
                         new RemoteUiElement(
                             uie?.Name,
                             uie?.IsActive ?? false,
-                            uie?.Text
+                            uie?.Text,
+                            uie.LocalPosition.X, uie.LocalPosition.Y, uie.LocalPosition.Z,
+                            uie.EulerRotation.X, uie.EulerRotation.Y, uie.EulerRotation.Z
                         ));
 
                 return Task.FromResult(remoteResults.FirstOrDefault());
@@ -94,9 +96,24 @@ namespace AIR.UnityTestPilotRemote.Host
             result?.LeftClick();
         }
 
+        public void LeftClickDown(RemoteUiElement element)
+        {
+            var localElement = new NamedElementQueryNative(element.Name);
+            var result = localElement.Search().FirstOrDefault();
+            result?.LeftClickDown();
+        }
+
+        public void LeftClickUp(RemoteUiElement element)
+        {
+            var localElement = new NamedElementQueryNative(element.Name);
+            var result = localElement.Search().FirstOrDefault();
+            result?.LeftClickUp();
+        }
+
         public void Dispose()
         {
             Object.Destroy(_scheneObject);
         }
+
     }
 }

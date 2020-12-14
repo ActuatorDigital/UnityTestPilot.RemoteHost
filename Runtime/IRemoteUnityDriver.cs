@@ -28,6 +28,8 @@ namespace AIR.UnityTestPilotRemote.Common
         void Shutdown(bool immediate);
         void SetTimeScale(float timeScale);
         void LeftClick(RemoteUiElement element);
+        void LeftClickDown(RemoteUiElement element);
+        void LeftClickUp(RemoteUiElement element);
     }
 
     public interface ISerializableAgentMessage
@@ -41,24 +43,36 @@ namespace AIR.UnityTestPilotRemote.Common
         public string Name;
         public bool IsActive;
         public string Text;
+        public float XPos, YPos, ZPos;
+        public float XRot, YRot, ZRot;
 
         public RemoteUiElement(
             string name,
             bool isActive,
-            string text
-        )
-        {
+            string text,
+            float xPos, float yPos, float zPos,
+            float xRot, float yRot, float zRot
+        ) {
             Name = name;
             IsActive = isActive;
             Text = text;
+
+            XPos = xPos;
+            YPos = yPos;
+            ZPos = zPos;
+
+            XRot = xRot;
+            YRot = yRot;
+            ZRot = zRot;
         }
 
         public byte[] Serialize()
         {
-            var elementStr = string.Join(
-                "|",
+            var elementStr = String.Join("|",
                 Name,
                 IsActive ? "Active" : "Inactive",
+                XPos, YPos, ZPos,
+                XRot, YRot, ZRot,
                 Text);
             return Encoding.ASCII.GetBytes(elementStr);
         }
@@ -69,7 +83,13 @@ namespace AIR.UnityTestPilotRemote.Common
             var elementParts = elementStr.Split('|');
             Name = elementParts[0];
             IsActive = elementParts[1] == "Active";
-            Text = elementParts[2];
+            XPos = float.Parse(elementParts[2]);
+            YPos = float.Parse(elementParts[3]);
+            ZPos = float.Parse(elementParts[4]);
+            XPos = float.Parse(elementParts[5]);
+            YPos = float.Parse(elementParts[6]);
+            ZPos = float.Parse(elementParts[7]);
+            Text = elementParts[8];
         }
     }
 

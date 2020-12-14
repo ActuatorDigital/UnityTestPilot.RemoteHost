@@ -3,7 +3,7 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "AIR.UnityTestPilot.Remote"
+        "AIR.UnityTestPilotRemote.Host"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

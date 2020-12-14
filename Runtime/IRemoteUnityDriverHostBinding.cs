@@ -33,6 +33,8 @@ namespace GeneratedBindings
             map.AddSendEndpoint<bool>((c, m) => Shutdown(m), "Shutdown");
             map.AddSendEndpoint<Single>((c, m) => SetTimeScale(m), "SetTimeScale");
             map.AddSendEndpoint<RemoteUiElement>((c, m) => LeftClick(m), "LeftClick");
+            map.AddSendEndpoint<RemoteUiElement>((c, m) => LeftClickDown(m), "LeftClickDown");
+            map.AddSendEndpoint<RemoteUiElement>((c, m) => LeftClickUp(m), "LeftClickUp");
         }
 
         Task<AIR.UnityTestPilotRemote.Common.RemoteUiElement> Query(RemoteElementQuery query)
@@ -53,6 +55,16 @@ namespace GeneratedBindings
         void LeftClick(RemoteUiElement element)
         {
             _service.LeftClick(element);
+        }
+
+        void LeftClickDown(RemoteUiElement element)
+        {
+            _service.LeftClickDown(element);
+        }
+
+        void LeftClickUp(RemoteUiElement element)
+        {
+            _service.LeftClickUp(element);
         }
     }
 }
