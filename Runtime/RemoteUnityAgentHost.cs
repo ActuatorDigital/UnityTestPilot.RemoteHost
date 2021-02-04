@@ -65,13 +65,17 @@ namespace AIR.UnityTestPilotRemote.Host
             if (nativeResults != null) {
                 var remoteResults = Enumerable.Select(
                     nativeResults, uie =>
-                        new RemoteUiElement(
-                            uie?.Name,
-                            uie?.IsActive ?? false,
-                            uie?.Text,
-                            uie.LocalPosition.X, uie.LocalPosition.Y, uie.LocalPosition.Z,
-                            uie.EulerRotation.X, uie.EulerRotation.Y, uie.EulerRotation.Z
-                        ));
+                        new RemoteUiElement {
+                            Name = uie?.Name,
+                            IsActive = uie?.IsActive ?? false,
+                            Text = uie?.Text,
+                            XPos = uie.LocalPosition.X,
+                            YPos = uie.LocalPosition.Y,
+                            ZPos = uie.LocalPosition.Z,
+                            XRot = uie.EulerRotation.X,
+                            YRot = uie.EulerRotation.Y,
+                            ZRot = uie.EulerRotation.Z,
+                        });
 
                 return Task.FromResult(remoteResults.FirstOrDefault());
             } else {
