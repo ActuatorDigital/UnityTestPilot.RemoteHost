@@ -10,7 +10,12 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "AIR.UnityTestPilot.dll",
+        "AIR.UnityTestPilotRemote.Common.dll",
+        "Tachyon-Common.dll",
+        "Tachyon-Host-RPC.dll",
+        "Tachyon-Host-Core.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

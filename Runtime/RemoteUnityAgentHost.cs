@@ -47,18 +47,22 @@ namespace AIR.UnityTestPilotRemote.Host
         public Task<RemoteUiElement> Query(RemoteElementQuery query)
         {
             ElementQuery nativeQuery;
-            switch (query.Format) {
-                case QueryFormat.NamedQuery:
-                    nativeQuery = new NamedElementQueryNative(query.Name);
-                    break;
-                case QueryFormat.TypedQuery:
-                    var queryType = Type.GetType(query.TargetType);
-                    nativeQuery = string.IsNullOrEmpty(query.Name)
-                        ? new TypedElementQueryNative(queryType)
-                        : new TypedElementQueryNative(queryType, query.Name);
-                    break;
-                default:
-                    throw new ArgumentException("Element query format not known.");
+            switch (query.Format)
+            {
+            case QueryFormat.NamedQuery:
+                nativeQuery = new NamedElementQueryNative(query.Name);
+                break;
+            case QueryFormat.TypedQuery:
+                var queryType = Type.GetType(query.TargetType);
+                nativeQuery = string.IsNullOrEmpty(query.Name)
+                    ? new TypedElementQueryNative(queryType)
+                    : new TypedElementQueryNative(queryType, query.Name);
+                break;
+            case QueryFormat.PathQuery:
+                nativeQuery = new PathElementQueryNative(query.Name);
+                break;
+            default:
+                throw new ArgumentException("Element query format not known.");
             }
 
             var nativeResults = nativeQuery.Search();

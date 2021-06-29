@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Net.Sockets;
-using AIR.UnityTestPilot.Remote;
+using AIR.UnityTestPilotRemote.Common;
+using AIR.UnityTestPilotRemote.Host;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;

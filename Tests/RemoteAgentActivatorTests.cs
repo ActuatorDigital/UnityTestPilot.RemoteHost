@@ -1,4 +1,4 @@
-﻿using AIR.UnityTestPilot.Remote;
+﻿using AIR.UnityTestPilotRemote.Host;
 using NUnit.Framework;
 
 namespace RemoteUnityDriverTests {
