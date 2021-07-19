@@ -71,6 +71,7 @@ namespace AIR.UnityTestPilotRemote.Host
                     nativeResults, uie =>
                         new RemoteUiElement {
                             Name = uie?.Name,
+                            FullPath = uie?.FullPath,
                             IsActive = uie?.IsActive ?? false,
                             Text = uie?.Text,
                             XPos = uie.LocalPosition.X,
@@ -99,21 +100,21 @@ namespace AIR.UnityTestPilotRemote.Host
 
         public void LeftClick(RemoteUiElement element)
         {
-            var localElement = new NamedElementQueryNative(element.Name);
+            var localElement = new PathElementQueryNative(element.FullPath);
             var result = localElement.Search().FirstOrDefault();
             result?.LeftClick();
         }
 
         public void LeftClickDown(RemoteUiElement element)
         {
-            var localElement = new NamedElementQueryNative(element.Name);
+            var localElement = new PathElementQueryNative(element.FullPath);
             var result = localElement.Search().FirstOrDefault();
             result?.LeftClickDown();
         }
 
         public void LeftClickUp(RemoteUiElement element)
         {
-            var localElement = new NamedElementQueryNative(element.Name);
+            var localElement = new PathElementQueryNative(element.FullPath);
             var result = localElement.Search().FirstOrDefault();
             result?.LeftClickUp();
         }
