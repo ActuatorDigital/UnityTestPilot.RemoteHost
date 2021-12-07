@@ -35,6 +35,9 @@ namespace GeneratedBindings
             map.AddSendEndpoint<RemoteUiElement>((c, m) => LeftClick(m), "LeftClick");
             map.AddSendEndpoint<RemoteUiElement>((c, m) => LeftClickDown(m), "LeftClickDown");
             map.AddSendEndpoint<RemoteUiElement>((c, m) => LeftClickUp(m), "LeftClickUp");
+            map.AddSendEndpoint<RemoteUiElement>((c, m) => RightClick(m), "RightClick");
+            map.AddSendEndpoint<RemoteUiElement>((c, m) => RightClickDown(m), "RightClickDown");
+            map.AddSendEndpoint<RemoteUiElement>((c, m) => RightClickUp(m), "RightClickkUp");
         }
 
         Task<AIR.UnityTestPilotRemote.Common.RemoteUiElement> Query(RemoteElementQuery query)
@@ -52,6 +55,11 @@ namespace GeneratedBindings
             _service.SetTimeScale(timeScale);
         }
 
+        void LeftClickUp(RemoteUiElement element)
+        {
+            _service.LeftClickUp(element);
+        }
+
         void LeftClick(RemoteUiElement element)
         {
             _service.LeftClick(element);
@@ -62,9 +70,20 @@ namespace GeneratedBindings
             _service.LeftClickDown(element);
         }
 
-        void LeftClickUp(RemoteUiElement element)
+        void RightClickUp(RemoteUiElement element)
         {
-            _service.LeftClickUp(element);
+            _service.RightClickUp(element);
         }
+
+        void RightClick(RemoteUiElement element)
+        {
+            _service.RightClick(element);
+        }
+
+        void RightClickDown(RemoteUiElement element)
+        {
+            _service.RightClickDown(element);
+        }
+
     }
 }

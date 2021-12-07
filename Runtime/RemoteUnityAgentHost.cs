@@ -119,6 +119,27 @@ namespace AIR.UnityTestPilotRemote.Host
             result?.LeftClickUp();
         }
 
+        public void RightClick(RemoteUiElement element)
+        {
+            var localElement = new PathElementQueryNative(element.FullPath);
+            var result = localElement.Search().FirstOrDefault();
+            result?.RightClick();
+        }
+
+        public void RightClickDown(RemoteUiElement element)
+        {
+            var localElement = new PathElementQueryNative(element.FullPath);
+            var result = localElement.Search().FirstOrDefault();
+            result?.RightClickDown();
+        }
+
+        public void RightClickUp(RemoteUiElement element)
+        {
+            var localElement = new PathElementQueryNative(element.FullPath);
+            var result = localElement.Search().FirstOrDefault();
+            result?.RightClickUp();
+        }
+
         public void Dispose()
         {
             Object.Destroy(_scheneObject);
